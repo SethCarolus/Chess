@@ -1,6 +1,5 @@
 #pragma once
 
-#include <malloc.h>
 #define board_columns 8
 #define board_rows 8
 

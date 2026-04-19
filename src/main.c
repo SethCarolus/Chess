@@ -13,6 +13,7 @@ int main() {
     BeginDrawing();
     ClearBackground(BLACK);
     displayBoard(&board);
+    handleMovement(&board);
     EndDrawing();
   }
   CloseWindow();
