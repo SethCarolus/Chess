@@ -25,6 +25,7 @@ typedef struct Piece {
   pieceColor_t color;
   pieceType_t type;
   Texture texture;
+  bool hasMoved;
 } piece_t;
 
 Texture loadPieceTexture(const char* path) {
@@ -38,7 +39,8 @@ Texture loadPieceTexture(const char* path) {
 piece_t createPiece(pieceColor_t color, pieceType_t type) {
   piece_t piece = {
     .color = color,
-    .type = type
+    .type = type,
+    .hasMoved = false
   };
   switch (piece.color) {
     case PC_WHITE: {

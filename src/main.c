@@ -6,7 +6,8 @@
 #define HEIGHT 850
 
 int main() {
-  InitWindow(WIDTH , HEIGHT, "chess");
+  InitWindow(WIDTH , HEIGHT, "Chess");
+  InitAudioDevice();
   board_t board = createBoard();
 
   while(!WindowShouldClose()) {
