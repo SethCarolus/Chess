@@ -18,7 +18,10 @@ FetchContent_MakeAvailable(raylib)
 
 add_executable(${PROJECT_NAME}
   ./src/main.c
-)
+  ./src/piece.c
+  ./src/board.c
+  ./src/renderer.c
+  ./src/movement.c)
 
 target_link_libraries(${PROJECT_NAME}
   raylib
