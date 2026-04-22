@@ -6,26 +6,12 @@
 #include <stdint.h>
 #include <malloc.h>
 
-typedef struct Board{
-  Piece data[board_rows][board_columns];
-  Texture texture;
-  int selectedColumn;
-  int selectedRow;
-  bool isWhiteTurn;
-  Sound moveSound;
-  Sound captureSound;
-} Board;
+#include "asset_manager.h"
 
 Board createBoard() {
   Board board;
 
-  Image boardImg = LoadImage("../resources/boards-png/rect-8x8.png");
-  ImageResize(&boardImg, GetScreenWidth(), GetScreenHeight());
-  board.texture = LoadTextureFromImage(boardImg);
-  UnloadImage(boardImg);
-
-  board.moveSound = LoadSound("../resources/sounds/move.wav");
-  board.captureSound = LoadSound("../resources/sounds/capture.wav");
+  board.texture = getBoardTexture();
 
   for (size_t i = 0; i < board_rows; i++) {
     for (size_t j = 0; j < board_columns; j++) {

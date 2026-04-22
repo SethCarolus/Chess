@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <math.h>
 
+extern Sound moveSound;
+
 void handleVerHozMovement(uint8_t currentRow, uint8_t currentColumn, Board* board, uint8_t* count, BoardPosition* moves){
   for (size_t i = currentColumn - 1; i >= 0 ; i--) {
     if (board->data[currentRow][i].type != PT_VOID) break;
@@ -324,7 +326,7 @@ void handleMovement(Board* board) {
 
   board->isWhiteTurn = !board->isWhiteTurn;
 
-  if (!IsSoundPlaying(board->moveSound)) {
-    PlaySound(board->moveSound);
+  if (!IsSoundPlaying(moveSound)) {
+    PlaySound(moveSound);
   }
 }

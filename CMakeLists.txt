@@ -21,7 +21,9 @@ add_executable(${PROJECT_NAME}
   ./src/piece.c
   ./src/board.c
   ./src/renderer.c
-  ./src/movement.c)
+  ./src/movement.c
+  ./src/asset_manager.c
+)
 
 target_link_libraries(${PROJECT_NAME}
   raylib

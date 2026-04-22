@@ -1,13 +1,7 @@
 #include "piece.h"
 
+#include "asset_manager.h"
 
-Texture loadPieceTexture(const char* path) {
-  Image img = LoadImage(path);
-  ImageResize(&img, GetScreenWidth() / 8, GetScreenHeight() / 8);
-  Texture texture = LoadTextureFromImage(img);
-  UnloadImage(img);
-  return texture;
-}
 
 Piece createPiece(PieceColor color, PieceType type) {
   Piece piece = {
@@ -22,27 +16,27 @@ Piece createPiece(PieceColor color, PieceType type) {
           break;
         }
         case PT_PAWN: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/white-pawn.png");
+          piece.texture = getPieceTexture(WHITE_PAWN);
           break;
         }
         case PT_ROOK: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/white-rook.png");
+          piece.texture = getPieceTexture(WHITE_ROOK);
           break;
         }
         case PT_KNIGHT: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/white-knight.png");
+          piece.texture = getPieceTexture(WHITE_KNIGHT);
           break;
         }
         case PT_BISHOP: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/white-bishop.png");
+          piece.texture = getPieceTexture(WHITE_BISHOP);
           break;
         }
         case PT_QUEEN: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/white-queen.png");
+          piece.texture = getPieceTexture(WHITE_QUEEN);
           break;
         }
         case PT_KING: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/white-king.png");
+          piece.texture = getPieceTexture(WHITE_KING);
           break;
         }
       }
@@ -54,27 +48,27 @@ Piece createPiece(PieceColor color, PieceType type) {
           break;
         }
         case PT_PAWN: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/black-pawn.png");
+          piece.texture = getPieceTexture(BLACK_PAWN);
           break;
         }
         case PT_ROOK: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/black-rook.png");
+          piece.texture = getPieceTexture(BLACK_ROOK);
           break;
         }
         case PT_KNIGHT: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/black-knight.png");
+          piece.texture = getPieceTexture(BLACK_KNIGHT);
           break;
         }
         case PT_BISHOP: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/black-bishop.png");
+          piece.texture = getPieceTexture(BLACK_BISHOP);
           break;
         }
         case PT_QUEEN: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/black-queen.png");
+          piece.texture = getPieceTexture(BLACK_QUEEN);
           break;
         }
         case PT_KING: {
-          piece.texture = loadPieceTexture("../resources/pieces-basic-png/black-king.png");
+          piece.texture = getPieceTexture(BLACK_KING);
           break;
         }
       }

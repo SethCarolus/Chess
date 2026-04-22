@@ -24,10 +24,8 @@ typedef enum PieceColor {
 typedef struct Piece {
   PieceColor color;
   PieceType type;
-  Texture texture;
+  Texture* texture;
   bool hasMoved;
 } Piece;
 
-
 Piece createPiece(PieceColor color, PieceType type);
-Texture loadPieceTexture(const char* path);
