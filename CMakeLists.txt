@@ -23,6 +23,7 @@ add_executable(${PROJECT_NAME}
   ./src/renderer.c
   ./src/movement.c
   ./src/asset_manager.c
+  ./src/app.c
 )
 
 target_link_libraries(${PROJECT_NAME}

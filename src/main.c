@@ -1,28 +1,16 @@
-#include <inttypes.h>
-
-#include "raylib.h"
-#include "board.h"
-#include "renderer.h"
-#include "movement.h"
-#include "asset_manager.h"
-
-#define WIDTH 850
-#define HEIGHT 850
+#include "app.h"
 
 int main() {
-  InitWindow(WIDTH , HEIGHT, "Chess");
-  InitAudioDevice();
-  loadAssets();
-  Board board = createBoard();
+  App app = {
+    .width = 850,
+    .height = 850,
+    .fps = 67,
+    .title = "Chess"
+  };
 
-  while(!WindowShouldClose()) {
-    BeginDrawing();
-    ClearBackground(BLACK);
-    displayBoard(&board);
-    handleMovement(&board);
-    EndDrawing();
-  }
-  unloadAssets();
-  CloseWindow();
+  init(&app);
+  run(&app);
+  shutdown(&app);
+
   return 0;
 }
