@@ -14,31 +14,55 @@ typedef struct Move{
 } Move;
 
 void getVeriticalHorizontalPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* board, Move* moves, uint8_t* moves_count){
+  Piece* current = &board->data[currentRow][currentColumn];
   for (size_t i = currentColumn - 1; i >= 0 ; i--) {
-    if (board->data[currentRow][i].type != PT_VOID) break;
+    if (board->data[currentRow][i].type != PT_VOID) {
+      if (board->data[currentRow][i].color != current->color) {
+        moves[(*moves_count)++] = (Move) { .row = currentRow, .column = i };
+      }
+      break;
+    }
     moves[(*moves_count)++] = (Move) { .row = currentRow, .column = i };
   }
   for (size_t i = currentColumn + 1; i < board_columns; i++){
-    if (board->data[currentRow][i].type != PT_VOID) break;
+    if (board->data[currentRow][i].type != PT_VOID) {
+      if (board->data[currentRow][i].color != current->color) {
+        moves[(*moves_count)++] = (Move) { .row = currentRow, .column = i };
+      }
+      break;
+    }
     moves[(*moves_count)++] = (Move) { .row = currentRow, .column = i };
   }
 
   for (size_t i = currentRow - 1; i >= 0; i-- ) {
-    if (board->data[i][currentColumn].type != PT_VOID) break;
+    if (board->data[i][currentColumn].type != PT_VOID) {
+      if (board->data[i][currentColumn].color != current->color) {
+        moves[(*moves_count)++] = (Move) { .row = i, .column = currentColumn};
+      }
+      break;
+    }
     moves[(*moves_count)++] = (Move) { .row = i, .column = currentColumn};
   }
   for (size_t i = currentRow + 1; i < board_columns; i++){
-    if (board->data[i][currentColumn].type != PT_VOID) break;
+    if (board->data[i][currentColumn].type != PT_VOID) {
+      if (board->data[i][currentColumn].color != current->color) {
+        moves[(*moves_count)++] = (Move) { .row = i, .column = currentColumn};
+      }
+      break;
+    }
     moves[(*moves_count)++] = (Move) { .row = i, .column = currentColumn};
   }
 }
 void getDiagonalPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* board, Move* moves, uint8_t* moves_count) {
+  Piece* current = &board->data[currentRow][currentColumn];
   // LEFT
   // TOP
   // BOTTOM
-  //
   for (size_t i = currentColumn - 1, j = currentRow - 1;i  >= 0 && j >= 0; i--, j--) {
     if (board->data[j][i].type != PT_VOID) {
+      if (board->data[j][i].color != current->color) {
+        moves[(*moves_count)++] = (Move) { .row = j, .column = i};
+      }
       break;
     }
     moves[(*moves_count)++] = (Move) { .row = j, .column = i};
@@ -46,6 +70,9 @@ void getDiagonalPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* 
 
   for (size_t i = currentColumn - 1 , j = currentRow + 1;i >= 0 && j < board_rows; i--, j++){
     if (board->data[j][i].type != PT_VOID) {
+      if (board->data[j][i].color != current->color) {
+        moves[(*moves_count)++] = (Move) { .row = j, .column = i};
+      }
       break;
     }
     moves[(*moves_count)++] = (Move) { .row = j, .column = i};
@@ -55,6 +82,9 @@ void getDiagonalPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* 
 
   for (size_t i = currentColumn + 1, j = currentRow - 1 ; i < board_columns && j < board_rows; i++, j--){
     if (board->data[j][i].type != PT_VOID) {
+      if (board->data[j][i].color  != current->color) {
+        moves[(*moves_count)++] = (Move) { .row = j, .column = i};
+      }
       break;
     }
     moves[(*moves_count)++] = (Move) { .row = j, .column = i};
@@ -62,77 +92,82 @@ void getDiagonalPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* 
 
   for (size_t i = currentColumn + 1, j = currentRow + 1; i < board_columns && j < board_rows; i++, j++){
     if (board->data[j][i].type != PT_VOID) {
+      if (board->data[j][i].color  != current->color) {
+        moves[(*moves_count)++] = (Move) { .row = j, .column = i};
+      }
       break;
     }
     moves[(*moves_count)++] = (Move) { .row = j, .column = i};
   }
 }
 void getKnightPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* board, Move* moves, uint8_t* moves_count) {
+  Piece* current = &board->data[currentRow][currentColumn];
   // UP 2 LEFT 1
-  if (currentRow - 2 >= 0 && currentColumn - 1 >= 0 && board->data[currentRow - 2][currentColumn - 1 ].type == PT_VOID) {
+  if (currentRow - 2 >= 0 && currentColumn - 1 >= 0 && board->data[currentRow - 2][currentColumn - 1 ].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow - 2, .column = currentColumn - 1};
   }
   // UP 2 RIGHT 1
-  if (currentRow - 2 >= 0 && currentColumn + 1 < 8 && board->data[currentRow - 2][currentColumn + 1 ].type == PT_VOID) {
+  if (currentRow - 2 >= 0 && currentColumn + 1 < 8 && board->data[currentRow - 2][currentColumn + 1 ].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow - 2, .column = currentColumn + 1};
   }
 
   // DOWN 2  LEFT 1
-  if (currentRow + 2 < 8 && currentColumn - 1 >= 0 && board->data[currentRow + 2][currentColumn - 1 ].type == PT_VOID) {
+  if (currentRow + 2 < 8 && currentColumn - 1 >= 0 && board->data[currentRow + 2][currentColumn - 1 ].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow + 2, .column = currentColumn - 1};
   }
   // DOWN 2 RIGHT 1
-  if (currentRow + 2 < 8 && currentColumn + 1 < 8 && board->data[currentRow + 2][currentColumn + 1 ].type == PT_VOID) {
+  if (currentRow + 2 < 8 && currentColumn + 1 < 8 && board->data[currentRow + 2][currentColumn + 1 ].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow + 2, .column = currentColumn + 1};
   }
 
   // UP 1 LEFT 2
-  if (currentRow - 1 >= 0 && currentColumn - 2 >= 0 && board->data[currentRow - 1][currentColumn - 2 ].type == PT_VOID) {
+  if (currentRow - 1 >= 0 && currentColumn - 2 >= 0 && board->data[currentRow - 1][currentColumn - 2 ].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow - 1, .column = currentColumn - 2};
   }
   // UP 1 RIGHT 2
-  if (currentRow - 1 >= 0 && currentColumn + 2 < 8 && board->data[currentRow - 1][currentColumn + 2 ].type == PT_VOID) {
+  if (currentRow - 1 >= 0 && currentColumn + 2 < 8 && board->data[currentRow - 1][currentColumn + 2 ].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow - 1, .column = currentColumn + 2};
   }
 
   // DOWN 1  LEFT 2
-  if (currentRow + 1 < 8 && currentColumn - 2 >= 0 && board->data[currentRow + 1][currentColumn - 2 ].type == PT_VOID) {
+  if (currentRow + 1 < 8 && currentColumn - 2 >= 0 && board->data[currentRow + 1][currentColumn - 2 ].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow + 1, .column = currentColumn - 2};
   }
   // DOWN 1 RIGHT 2
-  if (currentRow + 1 < 8 && currentColumn + 2 < 8 && board->data[currentRow + 1][currentColumn + 2].type == PT_VOID) {
+  if (currentRow + 1 < 8 && currentColumn + 2 < 8 && board->data[currentRow + 1][currentColumn + 2].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow + 1, .column = currentColumn + 2};
   }
 }
 void getKingPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* board, Move* moves, uint8_t* moves_count) {
+  Piece* current = &board->data[currentRow][currentColumn];
   // DOWN
-  if (currentRow > 0 && board->data[currentRow - 1][currentColumn].type == PT_VOID) {
+  if (currentRow > 0 && board->data[currentRow - 1][currentColumn].color != current->color ) {
     moves[(*moves_count)++] = (Move) { .row = currentRow - 1, .column = currentColumn };
   }
   // RIGHT
-  if (currentColumn < 8 && board->data[currentRow][currentColumn + 1].type == PT_VOID) {
+  if (currentColumn < 8 && board->data[currentRow][currentColumn + 1].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow, .column = currentColumn + 1 };
   }
   // LEFT
-  if (currentColumn > 0 && board->data[currentRow][currentColumn - 1].type == PT_VOID) {
+  if (currentColumn > 0 && board->data[currentRow][currentColumn - 1].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow, .column = currentColumn - 1 };
   }
 
   // TOP LEFT
-  if (currentColumn < 8 && currentRow < 8 && board->data[currentRow + 1][currentColumn + 1].type == PT_VOID) {
+  if (currentColumn < 8 && currentRow < 8 && board->data[currentRow + 1][currentColumn + 1].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow + 1 , .column = currentColumn + 1 };
   }
   // BOTTOM RIGHT
-  if (currentColumn > 0 && currentRow > 0 && board->data[currentRow - 1 ][currentColumn - 1].type == PT_VOID) {
+  if (currentColumn > 0 && currentRow > 0 && board->data[currentRow - 1 ][currentColumn - 1].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow -1 , .column = currentColumn - 1 };
   }
   // TOP RIGHT
-  if (currentColumn > 0 && currentRow < 8 && board->data[currentRow - 1 ][currentColumn + 1].type == PT_VOID) {
+  if (currentColumn > 0 && currentRow < 8 && board->data[currentRow - 1 ][currentColumn + 1].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow - 1 , .column = currentColumn + 1 };
   }
 
   // BOTTOM LEFT
-  if (currentColumn > 0 && currentRow < 8 && board->data[currentRow + 1 ][currentColumn - 1].type == PT_VOID) {
+  if (currentColumn > 0 && currentRow < 8 && board->data[currentRow + 1 ][currentColumn - 1].color != current->color) {
     moves[(*moves_count)++] = (Move) { .row = currentRow +  1 , .column = currentColumn - 1 };
   }
 }
@@ -143,6 +178,9 @@ void getPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* board, M
   *moves_count = 0;
 
   switch(piece.color) {
+    case PC_VOID: {
+      return;
+    }
     case PC_WHITE: {
       switch(piece.type) {
         case PT_VOID: {
@@ -150,6 +188,15 @@ void getPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* board, M
           break;
         }
         case PT_PAWN: {
+          // Accouting for Capture Movement
+          if (board->data[currentRow - 1][currentColumn - 1].color != piece.color) {
+            moves[(*moves_count)++] = (Move) { .row = currentRow - 1, .column = currentColumn - 1};
+          }
+          if (board->data[currentRow - 1][currentColumn + 1].color != piece.color) {
+            moves[(*moves_count)++] = (Move) { .row = currentRow - 1, .column = currentColumn +  1};
+          }
+          ///
+
           if (piece.hasMoved) {
             if (board->data[currentRow - 1 ][currentColumn].type == PT_VOID) {
               moves[(*moves_count)++] = (Move) { .row = currentRow - 1, .column = currentColumn };
@@ -197,6 +244,14 @@ void getPossibleMoves(uint8_t currentRow, uint8_t currentColumn, Board* board, M
           break;
         }
         case PT_PAWN: {
+          // Accouting for Capture Movement
+          if (board->data[currentRow + 1][currentColumn - 1].color != piece.color) {
+            moves[(*moves_count)++] = (Move) { .row = currentRow + 1, .column = currentColumn - 1};
+          }
+          if (board->data[currentRow + 1][currentColumn + 1].color != piece.color) {
+            moves[(*moves_count)++] = (Move) { .row = currentRow + 1, .column = currentColumn +  1};
+          }
+          ///
           if (piece.hasMoved) {
             if (board->data[currentRow + 1 ][currentColumn].type == PT_VOID) {
               moves[(*moves_count)++] = (Move) { .row = currentRow + 1, .column = currentColumn };
@@ -278,7 +333,7 @@ void makeMove(Board* board, uint8_t row, uint8_t column) {
   board->data[board->selectedRow][board->selectedColumn].hasMoved = true;
   printf("(%d, %d) to (%d, %d)\n", board->selectedRow, board->selectedColumn, row, column);
   board->data[row][column] = board->data[board->selectedRow][board->selectedColumn];
-  board->data[board->selectedRow][board->selectedColumn] = createPiece(PC_BLACK, PT_VOID);
+  board->data[board->selectedRow][board->selectedColumn] = createPiece(PC_VOID, PT_VOID);
   board->selectedColumn = -1;
   board->selectedRow = -1;
 

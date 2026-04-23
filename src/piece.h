@@ -17,6 +17,7 @@ typedef enum PieceType {
 } PieceType;
 
 typedef enum PieceColor {
+  PC_VOID,
   PC_WHITE,
   PC_BLACK,
 } PieceColor;

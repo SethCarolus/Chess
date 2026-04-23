@@ -1,5 +1,6 @@
 #include "board.h"
 
+#include "piece.h"
 #include "stdio.h"
 
 #include <math.h>
@@ -15,7 +16,7 @@ Board createBoard() {
 
   for (size_t i = 0; i < board_rows; i++) {
     for (size_t j = 0; j < board_columns; j++) {
-      board.data[i][j] = createPiece(PC_BLACK, PT_VOID);
+      board.data[i][j] = createPiece(PC_VOID, PT_VOID);
     }
   }
 

@@ -10,6 +10,9 @@ Piece createPiece(PieceColor color, PieceType type) {
     .hasMoved = false
   };
   switch (piece.color) {
+    case PC_VOID: {
+      break;
+    }
     case PC_WHITE: {
       switch (piece.type) {
         case PT_VOID: {
